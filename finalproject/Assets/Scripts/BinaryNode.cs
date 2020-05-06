@@ -11,21 +11,25 @@ public class BinaryNode : MonoBehaviour
 
     public BinaryNode left = null;
     public BinaryNode right = null;
-    public BinaryNode(GameObject v = null)
+    //public BinaryNode(GameObject v)
+    //{
+    //    value = v;
+    //}
+
+
+
+    public void Insert(GameObject[] textPrefabs, int index)
     {
-        value = v;
-    }
+        BinaryNode searchtree = new BinaryNode();
+        searchtree.left = new BinaryNode();
+        searchtree.right = new BinaryNode();
 
+        
+            searchtree.value = textPrefabs[index];
 
-
-    public void Insert(GameObject[] textPrefabs, int index, BinaryNode searchtree)
-    {
-        searchtree.value = textPrefabs[index];
-
-        searchtree.Insert(textPrefabs, (2 * index) + 1, searchtree.left);
-        searchtree.Insert(textPrefabs, (2 * index) + 2, searchtree.right);
-
-
+            searchtree.left.Insert(textPrefabs, (2 * index) +1);
+            searchtree.right.Insert(textPrefabs, (2 * index) + 2);
+        
     }
 
 

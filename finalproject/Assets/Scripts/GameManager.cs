@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private bool isPlaying = false;
     private int numberOfPrefabs;
     private int textPositionPointer;
+    private BinaryNode tree;
     //private BinaryNode adventure;
     int index = 0;
 
@@ -38,66 +39,51 @@ public class GameManager : MonoBehaviour
             start.gameObject.SetActive(false);
             option1.gameObject.SetActive(true);
             option2.gameObject.SetActive(true);
+            //Insert(textPrefabs, index, tree);
+
+
             startGame();
         });
     }
     void startGame()
     {
+        //add node to the BinaryTree
+        tree.Insert(textPrefabs, index);
+
+
         //Instantiates every prefab onto a transform
-        for(int i = 0; i < numberOfPrefabs; i++)
-        {
-            clone = Instantiate(textPrefabs[i], textPosition[textPositionPointer].transform);
-            textPosition[textPositionPointer].SetActive(false);
-            textPositionPointer++;
-        }
+        //for (int i = 0; i < numberOfPrefabs; i++)
+        //{
+        //    clone = Instantiate(textPrefabs[i], textPosition[textPositionPointer].transform);
+        //    textPosition[textPositionPointer].SetActive(false);
+        //    textPositionPointer++;
+        //}
 
         //shows the first text option
-        textPosition[index].SetActive(true);
+        //textPosition[index].SetActive(true);
 
-        option1.onClick.AddListener(delegate
-        {
-            textPosition[index].SetActive(false);
-            Option1();
-        });
-
-        option2.onClick.AddListener(delegate
-        {
-            textPosition[index].SetActive(false);
-            Option2();
-        });
-
-
-
-        //clone = Instantiate(textPrefabs[index], textPosition.transform);
-        //for (int i = 0; i < textPrefabs.Length; i++)
+        //option1.onClick.AddListener(delegate
         //{
-        //    option1.onClick.AddListener(delegate
-        //    {
-        //        Destroy(textPosition.transform.GetChild(0).gameObject);
-        //        index = (2 * index) + 1;
-        //        clone = Instantiate(textPrefabs[index], textPosition.transform);
-        //    });
-        //    option2.onClick.AddListener(delegate
-        //    {
-        //        Destroy(textPosition.transform.GetChild(0).gameObject);
-        //        index = (2 * index) + 2;
-        //        clone = Instantiate(textPrefabs[index], textPosition.transform);
-        //    });
-        //}
+        //    textPosition[index].SetActive(false);
+        //    Option1();
+        //});
 
+        //option2.onClick.AddListener(delegate
+        //{
+        //    textPosition[index].SetActive(false);
+        //    Option2();
+        //});
 
-        //if (op1 == true)
-        //{
-        //    index = (2 * index) + 1;
-        //}
-        //else if (op2 == true)
-        //{
-        //    index = (2 * index) + 2;
-        //}
 
     }
 
+    //void NextChoice()
+    //{
+    //    while(isPlaying)
+    //    {
 
+    //    }
+    //}
 
 
     void Option1()
@@ -117,56 +103,36 @@ public class GameManager : MonoBehaviour
 
 
 
-    //index = (2 * index) +1;
-    //clone = Instantiate(textPrefabs[index], textPosition.transform);
-    //option1.onClick.AddListener(delegate
+
+    //public void Insert(GameObject[] textPrefabs, int index, BinaryNode searchtree)
     //{
-    //    Destroy(textPosition.transform.GetChild(0).gameObject);
-    //    index = (2 * index) + 1;
-    //});
+    //    searchtree = new BinaryNode(textPrefabs[index]);
 
-    //option2.onClick.AddListener(delegate
+    //    //searchtree.value = textPrefabs[index];
+
+    //    searchtree.Insert(textPrefabs, (2 * index) + 1, searchtree.left);
+    //    searchtree.Insert(textPrefabs, (2 * index) + 2, searchtree.right);
+
+    //}
+
+
+
+
+    //public void ChangeText(bool button, GameObject text)
     //{
-    //    Destroy(textPosition.transform.GetChild(0).gameObject);
-    //    index = (2 * index) + 2;
-    //});
-
-
-
-
-
-    //adventure.Insert(textPrefabs, index, adventure);
-
-    //Instantiate(adventure.value, textPosition.transform);
-
-
-
-    //nextChoice(adventure);
-
-
-    // Update is called once per frame
-    /* void Update()
-     {
-
-     }
-     */
-
-    public void ChangeText(bool button, GameObject text)
-    {
-        if(button == false)
-        {
-            text.SetActive(true);
-        }
-        else
-        {
-            text.SetActive(false);
-        }
-    }
+    //    if(button == false)
+    //    {
+    //        text.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        text.SetActive(false);
+    //    }
+    //}
 
 
     private void resetGame()
     {
-        //Instantiate(textPrefabs[0], textPosition.transform);
         textPositionPointer = 0;
         numberOfPrefabs = textPrefabs.Length;
         option1.gameObject.SetActive(false);
@@ -181,30 +147,4 @@ public class GameManager : MonoBehaviour
 
     
 }
-/*
-BinaryNode adventure = new BinaryNode(textPrefabs[0]);
-adventure.left = new BinaryNode(textPrefabs[1]);
-adventure.right = new BinaryNode(textPrefabs[2]);
-adventure.left.left = new BinaryNode(textPrefabs[3]);
-adventure.left.right = new BinaryNode(textPrefabs[4]);
-adventure.right.left = new BinaryNode(textPrefabs[5]);
-adventure.right.right = new BinaryNode(textPrefabs[6]);
-adventure.left.left.left = new BinaryNode(textPrefabs[7]);
-adventure.left.left.right = new BinaryNode(textPrefabs[8]);
-adventure.left.right.left = new BinaryNode(textPrefabs[9]);
-adventure.left.right.right = new BinaryNode(textPrefabs[10]);
-adventure.right.left.left = new BinaryNode(textPrefabs[11]);
-adventure.right.left.right = new BinaryNode(textPrefabs[12]);
-adventure.right.right.left = new BinaryNode(textPrefabs[13]);
-adventure.right.right.right = new BinaryNode(textPrefabs[14]);
-adventure.left.right.left.left = new BinaryNode(textPrefabs[15]);
-adventure.left.right.left.right = new BinaryNode(textPrefabs[16]);
-adventure.right.right.left.left = new BinaryNode(textPrefabs[17]);
-adventure.right.right.left.right = new BinaryNode(textPrefabs[18]);
-adventure.left.right.left.right.left = new BinaryNode(textPrefabs[19]);
-adventure.left.right.left.right.right = new BinaryNode(textPrefabs[20]);
-adventure.left.right.left.right.left.left = new BinaryNode(textPrefabs[21]);
-adventure.left.right.left.right.left.right = new BinaryNode(textPrefabs[22]);
-adventure.left.right.left.right.left.right.left = new BinaryNode(textPrefabs[23]);
-adventure.left.right.left.right.left.right.right = new BinaryNode(textPrefabs[24]);
-*/
+
