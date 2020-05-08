@@ -7,22 +7,22 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] textPrefabs, textPosition;
+    private GameObject[] textPrefabs, textPosition, backgroundPosition, backgroundPrefab;
     [SerializeField]
     private GameObject  welcome;
     [SerializeField]
     private Button option1, option2, start;
 
     // [SerializeField]
-    //private BinaryNode adventure;
+
     private GameObject clone;
     private bool op1 = false;
     private bool op2 = false;
     private bool isPlaying = false;
     private int numberOfPrefabs;
     private int textPositionPointer;
-    private BinaryNode tree;
-    //private BinaryNode adventure;
+    private int backgroundPositionPointer;
+
     int index = 0;
 
 
@@ -39,57 +39,51 @@ public class GameManager : MonoBehaviour
             start.gameObject.SetActive(false);
             option1.gameObject.SetActive(true);
             option2.gameObject.SetActive(true);
-            //Insert(textPrefabs, index, tree);
-
 
             startGame();
         });
     }
     void startGame()
     {
-        //add node to the BinaryTree
-        tree.Insert(textPrefabs, index);
 
 
         //Instantiates every prefab onto a transform
-        //for (int i = 0; i < numberOfPrefabs; i++)
-        //{
-        //    clone = Instantiate(textPrefabs[i], textPosition[textPositionPointer].transform);
-        //    textPosition[textPositionPointer].SetActive(false);
-        //    textPositionPointer++;
-        //}
+        for (int i = 0; i < numberOfPrefabs; i++)
+        {
+            clone = Instantiate(textPrefabs[i], textPosition[textPositionPointer].transform);
+            clone = Instantiate(backgroundPrefab[i], backgroundPosition[backgroundPositionPointer].transform);
+            textPosition[textPositionPointer].SetActive(false);
+            backgroundPosition[backgroundPositionPointer].SetActive(false);
+            textPositionPointer++;
+            backgroundPositionPointer++;
+        }
 
         //shows the first text option
-        //textPosition[index].SetActive(true);
+        textPosition[index].SetActive(true);
+        backgroundPosition[index].SetActive(true);
 
-        //option1.onClick.AddListener(delegate
-        //{
-        //    textPosition[index].SetActive(false);
-        //    Option1();
-        //});
+        option1.onClick.AddListener(delegate
+        {
+            textPosition[index].SetActive(false);
+            backgroundPosition[index].SetActive(false);
+            Option1();
+        });
 
-        //option2.onClick.AddListener(delegate
-        //{
-        //    textPosition[index].SetActive(false);
-        //    Option2();
-        //});
+        option2.onClick.AddListener(delegate
+        {
+            textPosition[index].SetActive(false);
+            backgroundPosition[index].SetActive(false);
+            Option2();
+        });
 
 
     }
-
-    //void NextChoice()
-    //{
-    //    while(isPlaying)
-    //    {
-
-    //    }
-    //}
-
 
     void Option1()
     {
         index = (2 * index) + 1;
         textPosition[index].SetActive(true);
+        backgroundPosition[index].SetActive(true);
         startGame();
     }
 
@@ -98,42 +92,16 @@ public class GameManager : MonoBehaviour
     {
         index = (2 * index) + 2;
         textPosition[index].SetActive(true);
+        backgroundPosition[index].SetActive(true);
         startGame();
     }
 
 
 
-
-    //public void Insert(GameObject[] textPrefabs, int index, BinaryNode searchtree)
-    //{
-    //    searchtree = new BinaryNode(textPrefabs[index]);
-
-    //    //searchtree.value = textPrefabs[index];
-
-    //    searchtree.Insert(textPrefabs, (2 * index) + 1, searchtree.left);
-    //    searchtree.Insert(textPrefabs, (2 * index) + 2, searchtree.right);
-
-    //}
-
-
-
-
-    //public void ChangeText(bool button, GameObject text)
-    //{
-    //    if(button == false)
-    //    {
-    //        text.SetActive(true);
-    //    }
-    //    else
-    //    {
-    //        text.SetActive(false);
-    //    }
-    //}
-
-
     private void resetGame()
     {
         textPositionPointer = 0;
+        backgroundPositionPointer = 0;
         numberOfPrefabs = textPrefabs.Length;
         option1.gameObject.SetActive(false);
         option2.gameObject.SetActive(false);
